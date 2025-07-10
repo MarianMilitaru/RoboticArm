@@ -4,6 +4,12 @@
 #define dirPin 5
 #define enPin 0
 
+/*
+      1.8 degrees/step
+*/
+
+void moveMotor (bool, uint16_t, uint8_t);
+
 void setup() {
   DDRD |= (1 << stepPin); // Output
   DDRD |= (1 << dirPin); // Output
@@ -14,21 +20,20 @@ void setup() {
   PORTB &= ~(1 << enPin); // Low
 }
 void loop() {
-  PORTD |= (1 << dirPin); // High
-  for (int i = 0; i < 200; i++) {
-    PORTD |= (1 << stepPin); // High
-    delayMicroseconds(700);
-    PORTD &= ~(1 << stepPin); // Low
-    delayMicroseconds(700);
-  }
-  delay(1000);
+  moveMotor(1, 500, 50);
+  delay(200);
 
-  PORTD &= ~(1 << dirPin); // Low
-  for (int i = 0; i < 400; i++) {
+  moveMotor(0, 500, 50);
+  delay(200);
+}
+
+void moveMotor (bool direction, uint16_t delayBetweenSteps, uint8_t times) {
+  PORTD = (direction << dirPin);
+  
+  for (uint16_t i = 0; i < 200 * times; i++) {
     PORTD |= (1 << stepPin); // High
-    delayMicroseconds(700);
+    delayMicroseconds(delayBetweenSteps);
     PORTD &= ~(1 << stepPin); // Low
-    delayMicroseconds(700);
+    delayMicroseconds(delayBetweenSteps);
   }
-  delay(1000);
 }
