@@ -23,13 +23,3 @@ void loop() {
   motor1.start(400, 15);
   delay(200);
 }
-// void moveMotor (bool direction, uint16_t delayBetweenSteps, uint8_t times) {
-//   PORTD = (direction << dirPin);
-  
-//   for (uint16_t i = 0; i < 200 * times; i++) {
-//     PORTD |= (1 << stepPin); // High
-//     delayMicroseconds(delayBetweenSteps);
-//     PORTD &= ~(1 << stepPin); // Low
-//     delayMicroseconds(delayBetweenSteps);
-//   }
-// }
