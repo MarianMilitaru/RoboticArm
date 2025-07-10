@@ -1,34 +1,25 @@
 #include <Arduino.h>
+#include <Motor.h>
+
+/*
+      1.8 degrees/step
+*/
 
 #define stepPin 2
 #define dirPin 5
-#define enPin 0
+
+Motor motor1(dirPin, stepPin);
 
 void setup() {
-  DDRD |= (1 << stepPin); // Output
-  DDRD |= (1 << dirPin); // Output
-  DDRB |= (1 << enPin); // Output
-
-  PORTD &= ~(1 << stepPin); // Low
-  PORTD &= ~(1 << dirPin); // Low
-  PORTB &= ~(1 << enPin); // Low
+  motor1.init(200);
 }
-void loop() {
-  PORTD |= (1 << dirPin); // High
-  for (int i = 0; i < 800; i++) {
-    PORTD |= (1 << stepPin); // High
-    delayMicroseconds(700);
-    PORTD &= ~(1 << stepPin); // Low
-    delayMicroseconds(700);
-  }
-  delay(1000);
 
-  PORTD &= ~(1 << dirPin); // Low
-  for (int i = 0; i < 1600; i++) {
-    PIND |= (1 << stepPin); // High
-    delayMicroseconds(300);
-    PIND &= ~(1 << stepPin); // Low
-    delayMicroseconds(300);
-  }
-  delay(1000);
+void loop() {
+  motor1.setDirection(CLOCKWISE);
+  motor1.start(800, 7);
+  delay(200);
+
+  motor1.setDirection(COUNTERCLOCKWISE);
+  motor1.start(400, 15);
+  delay(200);
 }
