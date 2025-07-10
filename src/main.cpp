@@ -2,13 +2,16 @@
 
 #define stepPin 2
 #define dirPin 5
+#define enPin 0
 
 void setup() {
   DDRD |= (1 << stepPin); // Output
   DDRD |= (1 << dirPin); // Output
+  DDRB |= (1 << enPin); // Output
 
   PORTD &= ~(1 << stepPin); // Low
   PORTD &= ~(1 << dirPin); // Low
+  PORTB &= ~(1 << enPin); // Low
 }
 void loop() {
   PORTD |= (1 << dirPin); // High
@@ -23,9 +26,9 @@ void loop() {
   PORTD &= ~(1 << dirPin); // Low
   for (int i = 0; i < 1600; i++) {
     PIND |= (1 << stepPin); // High
-    delayMicroseconds(500);
+    delayMicroseconds(300);
     PIND &= ~(1 << stepPin); // Low
-    delayMicroseconds(500);
+    delayMicroseconds(300);
   }
   delay(1000);
 }
