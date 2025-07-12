@@ -5,21 +5,27 @@
       1.8 degrees/step
 */
 
-#define stepPin 2
-#define dirPin 5
+#define stepPinX 2
+#define dirPinX 5
+#define stepPinY 3
+#define dirPinY 6
+#define stepPinZ 4
+#define dirPinZ 8
+#define stepPinA 12
+#define dirPinA 13
 
-Motor motor1(dirPin, stepPin);
+Motor motorX(dirPinX, stepPinX);
 
 void setup() {
-  motor1.init(200);
+  motorX.init(200);
 }
 
 void loop() {
-  motor1.setDirection(CLOCKWISE);
-  motor1.start(800, 7);
+  motorX.setDirection(CLOCKWISE);
+  motorX.start(800, 7);
   delay(200);
 
-  motor1.setDirection(COUNTERCLOCKWISE);
-  motor1.start(400, 15);
+  motorX.setDirection(COUNTERCLOCKWISE);
+  motorX.start(400, 15);
   delay(200);
 }

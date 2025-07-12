@@ -13,13 +13,16 @@ class Motor {
     private:
         uint8_t _dirPin;
         uint8_t _stepPin;
+        uint8_t _port;
         bool _dir;
         uint16_t _steps;
+
+        void pickPort(uint8_t pin);
 
     public:
         Motor(uint8_t directionPin, uint8_t stepPin);
         void init (uint16_t steps);
-        void start(uint32_t delayTime, uint8_t rotations);
+        void start(uint16_t delayTime, uint8_t rotations);
 
         String getDirection();
         void setDirection(bool direction);
