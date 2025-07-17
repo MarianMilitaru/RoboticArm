@@ -21,11 +21,11 @@ void setup() {
 }
 
 void loop() {
-  motorX.setDirection(CLOCKWISE);
-  motorX.start(800, 7);
+  motorX.setDirection(COUNTERCLOCKWISE);
+  motorX.start(850, 6);
   delay(200);
 
-  motorX.setDirection(COUNTERCLOCKWISE);
-  motorX.start(400, 15);
+  motorX.setDirection(CLOCKWISE);
+  motorX.start(800, 6);
   delay(200);
 }
