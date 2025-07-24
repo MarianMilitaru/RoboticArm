@@ -41,20 +41,13 @@ void Motor::init(uint16_t steps) {
 
 /*!
 *   @brief Starts the motor
-*   @param delayTime Time between each step in us
-*   @param rotations Number of rotations
 */
-void Motor::start(uint16_t delayTime, uint8_t rotations) {
-    if(delayTime < 500) {
-        delayTime = 500;
-    }
-
+void Motor::start() {
     PORTD = (_dir << _dirPin); // Rotation direction
-    for (uint16_t i = 0; i <_steps * rotations; i++) {
+    for (uint16_t i = 0; i <_steps * _rotations; i++) {
         PORTD |= (1 << _stepPin); // High
-        delayMicroseconds(delayTime);
+        delayMicroseconds(_delayTime);
         PORTD &= ~(1 << _stepPin); // Low
-        delayMicroseconds(delayTime);
     }
 }
 
@@ -72,7 +65,12 @@ String Motor::getDirection() {
 /*!
 *   @brief Sets the current direction of rotation
 *   @param direction Clockwise or counterclockwise
+*   @param delayTime Time between each step in us
+*   @param rotations Number of rotations
 */
-void Motor::setDirection(bool direction) {
+void Motor::setParams(bool direction, uint16_t delayTime, uint8_t rotations) {
     _dir = direction;
+    if(_delayTime < 800) {_delayTime = 800;}
+    else _delayTime = delayTime;
+    _rotations = rotations;
 }

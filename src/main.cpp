@@ -15,17 +15,23 @@
 #define dirPinA 13
 
 Motor motorX(dirPinX, stepPinX);
+Motor motorY(dirPinY, stepPinY);
 
 void setup() {
   motorX.init(200);
+  motorY.init(200);
 }
 
 void loop() {
-  motorX.setDirection(COUNTERCLOCKWISE);
-  motorX.start(850, 6);
+  motorX.setParams(COUNTERCLOCKWISE, 800, 6);
+  motorX.start();
+  motorY.setParams(COUNTERCLOCKWISE, 800, 6);
+  motorY.start();
   delay(200);
 
-  motorX.setDirection(CLOCKWISE);
-  motorX.start(800, 6);
+  motorX.setParams(CLOCKWISE, 800, 6);
+  motorX.start();
+  motorY.setParams(CLOCKWISE, 800, 6);
+  motorY.start();
   delay(200);
 }
