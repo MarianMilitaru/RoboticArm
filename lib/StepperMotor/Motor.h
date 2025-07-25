@@ -30,4 +30,9 @@ class Motor {
 
 };
 
+void start(Motor motor);
+void start(Motor motor1, Motor motor2);
+void start(Motor motor1, Motor motor2, Motor motor3);
+void start(Motor motor1, Motor motor2, Motor motor3, Motor motor4);
+
 #endif
