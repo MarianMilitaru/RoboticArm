@@ -102,7 +102,7 @@ void Motor::setParams(bool direction, uint16_t delayTime, uint8_t rotations) {
 
 /*
     TODO: 
-    - Add the rest of the implementation for the start() function
+    - Keep in mind that different motors might have different number of steps, different delays, different directions and different number of rotations!
     - Modify the main() to utilise these functions
 */
 
@@ -116,14 +116,46 @@ void start(Motor motor) {
 }
 
 void start(Motor motor1, Motor motor2) {
-    PORTD = (motor1.getDirection() << motor1.getDirectionPin()); // Rotation direction
+    PORTD = (motor1.getDirection() << motor1.getDirectionPin());
     PORTD = (motor2.getDirection() << motor2.getDirectionPin());
+    for (uint16_t i = 0; i < motor1.getSteps() * motor1.getRotations(); i++) {
+        PORTD |= (1 << motor1.getStepPin()); // High
+        PORTD |= (1 << motor2.getStepPin()); // High
+        delayMicroseconds(motor1.getDelayTime());
+        PORTD &= ~(1 << motor1.getStepPin()); // Low
+        PORTD &= ~(1 << motor2.getStepPin()); // Low
+    }
 }
 
 void start(Motor motor1, Motor motor2, Motor motor3) {
-
+    PORTD = (motor1.getDirection() << motor1.getDirectionPin());
+    PORTD = (motor2.getDirection() << motor2.getDirectionPin());
+    PORTD = (motor3.getDirection() << motor3.getDirectionPin());
+    for (uint16_t i = 0; i < motor1.getSteps() * motor1.getRotations(); i++) {
+        PORTD |= (1 << motor1.getStepPin()); // High
+        PORTD |= (1 << motor2.getStepPin()); // High
+        PORTD |= (1 << motor3.getStepPin()); // High
+        delayMicroseconds(motor1.getDelayTime());
+        PORTD &= ~(1 << motor1.getStepPin()); // Low
+        PORTD &= ~(1 << motor2.getStepPin()); // Low
+        PORTD &= ~(1 << motor3.getStepPin()); // Low
+    }
 }
 
 void start(Motor motor1, Motor motor2, Motor motor3, Motor motor4) {
-    
+    PORTD = (motor1.getDirection() << motor1.getDirectionPin());
+    PORTD = (motor2.getDirection() << motor2.getDirectionPin());
+    PORTD = (motor3.getDirection() << motor3.getDirectionPin());
+    PORTD = (motor4.getDirection() << motor4.getDirectionPin());
+    for (uint16_t i = 0; i < motor1.getSteps() * motor1.getRotations(); i++) {
+        PORTD |= (1 << motor1.getStepPin()); // High
+        PORTD |= (1 << motor2.getStepPin()); // High
+        PORTD |= (1 << motor3.getStepPin()); // High
+        PORTD |= (1 << motor4.getStepPin()); // High
+        delayMicroseconds(motor1.getDelayTime());
+        PORTD &= ~(1 << motor1.getStepPin()); // Low
+        PORTD &= ~(1 << motor2.getStepPin()); // Low
+        PORTD &= ~(1 << motor3.getStepPin()); // Low
+        PORTD &= ~(1 << motor4.getStepPin()); // Low
+    }
 }
