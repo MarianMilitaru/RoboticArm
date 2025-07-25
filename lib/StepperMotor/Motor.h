@@ -23,9 +23,13 @@ class Motor {
     public:
         Motor(uint8_t directionPin, uint8_t stepPin);
         void init (uint16_t steps);
-        void start();
 
-        String getDirection();
+        bool getDirection();
+        uint8_t getDirectionPin();
+        uint8_t getStepPin();
+        uint16_t getDelayTime();
+        uint16_t getSteps();
+        uint8_t getRotations();
         void setParams(bool direction, uint16_t delayTime, uint8_t rotations);
 
 };
