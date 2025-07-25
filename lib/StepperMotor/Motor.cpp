@@ -40,26 +40,51 @@ void Motor::init(uint16_t steps) {
 }
 
 /*!
-*   @brief Starts the motor
-*/
-void Motor::start() {
-    PORTD = (_dir << _dirPin); // Rotation direction
-    for (uint16_t i = 0; i <_steps * _rotations; i++) {
-        PORTD |= (1 << _stepPin); // High
-        delayMicroseconds(_delayTime);
-        PORTD &= ~(1 << _stepPin); // Low
-    }
-}
-
-
-/*!
 *   @brief Gets the current direction of rotation
 *   @returns Direction of the motor
 */
-String Motor::getDirection() {
-    if(_dir)
-        return "CLOCKWISE";
-    return "COUNTERCLOCKWISE";
+bool Motor::getDirection() {
+    return _dir;
+}
+
+/*!
+*   @brief Gets the direction pin
+*   @returns Direction pin of the motor
+*/
+uint8_t Motor::getDirectionPin() {
+    return _dirPin;
+}
+
+/*!
+*   @brief Gets the current step pin
+*   @returns Step pin of the motor
+*/
+uint8_t Motor::getStepPin() {
+    return _stepPin;
+}
+
+/*!
+*   @brief Gets the current delay between each step
+*   @returns Delay value
+*/
+uint16_t Motor::getDelayTime() {
+    return _delayTime;
+}
+
+/*!
+*   @brief Gets the number of steps for a full rotation
+*   @returns Numebr of steps
+*/
+uint16_t Motor::getSteps() {
+    return _steps;
+}
+
+/*!
+*   @brief Gets the number of rotations given to the motor
+*   @returns Number of rotations
+*/
+uint8_t Motor::getRotations() {
+    return _rotations;
 }
 
 /*!
@@ -73,4 +98,32 @@ void Motor::setParams(bool direction, uint16_t delayTime, uint8_t rotations) {
     if(_delayTime < 800) {_delayTime = 800;}
     else _delayTime = delayTime;
     _rotations = rotations;
+}
+
+/*
+    TODO: 
+    - Add the rest of the implementation for the start() function
+    - Modify the main() to utilise these functions
+*/
+
+void start(Motor motor) {
+    PORTD = (motor.getDirection() << motor.getDirectionPin()); // Rotation direction
+    for (uint16_t i = 0; i < motor.getSteps() * motor.getRotations(); i++) {
+        PORTD |= (1 << motor.getStepPin()); // High
+        delayMicroseconds(motor.getDelayTime());
+        PORTD &= ~(1 << motor.getStepPin()); // Low
+    }
+}
+
+void start(Motor motor1, Motor motor2) {
+    PORTD = (motor1.getDirection() << motor1.getDirectionPin()); // Rotation direction
+    PORTD = (motor2.getDirection() << motor2.getDirectionPin());
+}
+
+void start(Motor motor1, Motor motor2, Motor motor3) {
+
+}
+
+void start(Motor motor1, Motor motor2, Motor motor3, Motor motor4) {
+    
 }
